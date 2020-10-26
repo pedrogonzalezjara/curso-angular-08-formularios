@@ -1,6 +1,6 @@
 <h4>Formularios <small>template</small></h4>
 <hr>
-<form novalidate="" (ngSubmit)="guardar(forma)" #forma="ngForm"> 
+<form autocomplete="off" (ngSubmit)="guardar(forma)" #forma="ngForm"> 
 
   <div>
 
@@ -12,8 +12,12 @@
                type="text"
                placeholder="Nombre"
                name="nombre"
-               [(ngModel)]="usuario.nombre"
-               required>
+               [class.is-invalid]="nombre.invalid && nombre.touched"
+               [ngModel]="usuario.nombre"
+               required
+               minlength="5"
+               #nombre="ngModel">
+               <small *ngIf="nombre.invalid && nombre.touched" class="form-text text-danger">Ingrese 5 letras</small>
       </div>
     </div>
 
@@ -25,7 +29,12 @@
                type="text"
                placeholder="Apellido"
                name="apellido"
-               [(ngModel)]="usuario.apellido">
+               [class.is-invalid]="apellido.invalid && apellido.touched"
+               [ngModel]="usuario.apellido"
+               required
+               minlength="5"
+               #apellido="ngModel">
+               <small *ngIf="apellido.invalid && apellido.touched" class="form-text text-danger">Ingrese 5 letras</small>
       </div>
     </div>
 
@@ -38,12 +47,30 @@
       <input class="form-control"
              type="email"
              placeholder="Correo electrónico"
-             [(ngModel)]="usuario.email"
+             [ngModel]="usuario.email"
+             [class.is-invalid]="email.invalid && email.touched"
+             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
              name="email"
-             required>
+             required
+             #email="ngModel">
+             <small *ngIf="email.invalid && email.touched" class="form-text text-danger">El correo es obligatorio</small>
     </div>
   </div>
 
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Apellido</label>
+    <div class="col-8">
+        <select class="form-control"
+                name="pais"
+                [ngModel]="usuario.pais"
+                [disabled]="paises.length === 0"
+                [class.is-invalid]="pais.invalid && pais.touched"
+                required
+                #pais="ngModel">
+          <option *ngFor="let pais of paises" [value]="pais.codigo">{{pais.nombre}}</option>
+        </select>
+    </div>
+  </div>
 
 
   <div class="form-group row">
