@@ -12,7 +12,8 @@ export class TemplateComponent implements OnInit {
     nombre: 'Pedro',
     apellido : 'Gonzalez',
     email : 'pgonzalez@gmail.com',
-    pais: ''
+    pais: '',
+    genero: 'M'
   };
 
   paises: any[] = [];
@@ -39,9 +40,6 @@ guardar(forma: NgForm) {
     });
     return;
   }
-    console.log( 'ngForm', forma);
-    console.log( 'valor', forma.value);
-    console.log('usuario', this.usuario);
   }
 
 }
